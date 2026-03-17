@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Panel — Sampurna ERP</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <script>
+        tailwind.config = { theme: { extend: { colors: { maroon: { DEFAULT:'#800000', dark:'#5c0000', light:'#a03030' } } } } }
+    </script>
+</head>
+<body class="bg-gray-100 min-h-screen">
+
+<!-- ═══ SIDEBAR ═══ -->
+<aside class="sidebar scrollbar-hide" id="sidebar">
+    <div class="sidebar-logo">
+        <img src="images/image2.png" alt="Logo" />
+        <h1>Student Portal</h1>
+    </div>
+    <nav class="sidebar-nav">
+        <button class="sidebar-nav-item active" data-section="dashboard"><i class="fa-solid fa-house"></i>Dashboard</button>
+        <button class="sidebar-nav-item" data-section="fees"><i class="fa-solid fa-indian-rupee-sign"></i>Fees</button>
+        <button class="sidebar-nav-item" data-section="exams"><i class="fa-solid fa-file-lines"></i>Exams</button>
+        <button class="sidebar-nav-item" data-section="library"><i class="fa-solid fa-book-open"></i>Library</button>
+        <button class="sidebar-nav-item" data-section="notices"><i class="fa-solid fa-bullhorn"></i>Notices</button>
+    </nav>
+    <div class="sidebar-footer">
+        <p>Sampurna College of Engineering</p>
+    </div>
+</aside>
+
+<!-- ═══ MAIN ═══ -->
+<div class="main-content">
+    <!-- Top Bar -->
+    <header class="topbar">
+        <div class="flex items-center gap-3">
+            <button id="menuToggle" class="md:hidden text-gray-600 text-xl"><i class="fa-solid fa-bars"></i></button>
+            <h2 class="topbar-title" id="sectionTitle">Dashboard</h2>
+        </div>
+        <div class="flex items-center gap-3">
+            <span class="text-sm text-gray-500"><i class="fa-solid fa-id-card mr-1"></i><span id="studentId" class="font-mono font-semibold"></span></span>
+            <button onclick="logout()" class="btn btn-outline btn-sm"><i class="fa-solid fa-right-from-bracket"></i>Logout</button>
+        </div>
+    </header>
+
+    <div class="p-6" id="contentArea">
+
+<!-- ── DASHBOARD ── -->
+<section id="sec-dashboard" class="section animate-fade-in">
+    <!-- Profile Card -->
+    <div class="card mb-6">
+        <div class="flex items-center gap-4 mb-4">
+            <div class="w-14 h-14 rounded-full bg-red-50 flex items-center justify-center">
+                <i class="fa-solid fa-user-graduate text-2xl text-maroon"></i>
+            </div>
+            <div>
+                <h3 id="profileName" class="text-xl font-bold text-gray-800">Loading…</h3>
+                <p class="text-sm text-gray-500"><span id="profileCourse"></span> · <span id="profileYear"></span> · Section <span id="profileSection"></span></p>
+            </div>
+        </div>
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 text-sm">
+            <div><span class="text-gray-500">Roll No</span><p id="profileRoll" class="font-medium">—</p></div>
+            <div><span class="text-gray-500">Email</span><p id="profileEmail" class="font-medium">—</p></div>
+            <div><span class="text-gray-500">Phone</span><p id="profilePhone" class="font-medium">—</p></div>
+            <div><span class="text-gray-500">Gender</span><p id="profileGender" class="font-medium">—</p></div>
+        </div>
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 text-sm mt-3">
+            <div><span class="text-gray-500">DOB</span><p id="profileDob" class="font-medium">—</p></div>
+            <div><span class="text-gray-500">Blood Group</span><p id="profileBlood" class="font-medium">—</p></div>
+            <div><span class="text-gray-500">Father’s Name</span><p id="profileFather" class="font-medium">—</p></div>
+            <div><span class="text-gray-500">Mother’s Name</span><p id="profileMother" class="font-medium">—</p></div>
+        </div>
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 text-sm mt-3">
+            <div><span class="text-gray-500">Category</span><p id="profileCategory" class="font-medium">—</p></div>
+            <div><span class="text-gray-500">Religion</span><p id="profileReligion" class="font-medium">—</p></div>
+            <div><span class="text-gray-500">Nationality</span><p id="profileNationality" class="font-medium">—</p></div>
+            <div><span class="text-gray-500">Aadhar</span><p id="profileAadhar" class="font-medium">—</p></div>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm mt-3">
+            <div><span class="text-gray-500">Address</span><p id="profileAddress" class="font-medium">—</p></div>
+            <div><span class="text-gray-500">Permanent Address</span><p id="profilePermAddress" class="font-medium">—</p></div>
+        </div>
+    </div>
+    <!-- Quick Stats -->
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div class="stat-card" style="border-top:4px solid var(--green)">
+            <div class="stat-icon bg-green-50 text-green-600"><i class="fa-solid fa-indian-rupee-sign"></i></div>
+            <div class="stat-value" id="dashFeesPaid">—</div>
+            <div class="stat-label">Total Fees Paid</div>
+        </div>
+        <div class="stat-card" style="border-top:4px solid var(--blue)">
+            <div class="stat-icon bg-blue-50 text-blue-600"><i class="fa-solid fa-book-open-reader"></i></div>
+            <div class="stat-value" id="dashIssuedBooks">0</div>
+            <div class="stat-label">Books Issued</div>
+        </div>
+        <div class="stat-card" style="border-top:4px solid var(--amber)">
+            <div class="stat-icon bg-amber-50 text-amber-600"><i class="fa-solid fa-calendar-check"></i></div>
+            <div class="stat-value" id="dashUpcomingExams">0</div>
+            <div class="stat-label">Upcoming Exams</div>
+        </div>
+    </div>
+</section>
+
+<!-- ── FEES ── -->
+<section id="sec-fees" class="section hidden animate-fade-in">
+    <div class="card mb-6">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div class="p-4 rounded-lg bg-green-50 border border-green-200">
+                <div class="text-sm text-green-700">Total Paid</div>
+                <div id="feesTotalPaid" class="text-2xl font-bold text-green-800 mt-1">—</div>
+            </div>
+            <div class="p-4 rounded-lg bg-gray-50 border border-gray-200">
+                <div class="text-sm text-gray-600">Fee Records</div>
+                <div id="feesCount" class="text-2xl font-bold text-gray-800 mt-1">0</div>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <h3 class="text-lg font-bold text-gray-800 mb-4"><i class="fa-solid fa-clock-rotate-left mr-2 text-maroon"></i>Fee History</h3>
+        <div class="overflow-x-auto">
+            <table>
+                <thead><tr><th>Receipt</th><th>Date</th><th>Amount</th><th>Mode</th><th>Action</th></tr></thead>
+                <tbody id="feeHistoryBody"><tr><td colspan="5" class="text-center text-gray-400 py-6">Loading…</td></tr></tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<!-- ── EXAMS ── -->
+<section id="sec-exams" class="section hidden animate-fade-in">
+    <div class="card">
+        <h3 class="text-lg font-bold text-gray-800 mb-4"><i class="fa-solid fa-file-lines mr-2 text-maroon"></i>Exam Schedule</h3>
+        <div class="overflow-x-auto">
+            <table>
+                <thead><tr><th>Exam</th><th>Course</th><th>Type</th><th>Date</th><th>Marks</th><th>Venue</th></tr></thead>
+                <tbody id="examTableBody"><tr><td colspan="6" class="text-center text-gray-400 py-6">Loading…</td></tr></tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<!-- ── LIBRARY ── -->
+<section id="sec-library" class="section hidden animate-fade-in">
+    <div id="noCardAlert" class="card bg-amber-50 border-amber-200 hidden mb-4">
+        <p class="text-amber-800"><i class="fa-solid fa-triangle-exclamation mr-2"></i>You don't have a library card yet. Please contact the librarian.</p>
+    </div>
+    <div id="libCardInfo" class="card mb-4 hidden">
+        <div class="flex items-center gap-3 mb-2">
+            <i class="fa-solid fa-id-card text-2xl text-maroon"></i>
+            <div>
+                <p class="font-bold text-gray-800">Library Card: <span id="myCardNo" class="font-mono"></span></p>
+                <p class="text-sm text-gray-500">Class: <span id="myCardClass"></span> · Roll: <span id="myCardRoll"></span></p>
+            </div>
+        </div>
+    </div>
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div class="card">
+            <h3 class="text-lg font-bold text-gray-800 mb-4"><i class="fa-solid fa-book-open-reader mr-2 text-maroon"></i>My Issued Books</h3>
+            <div id="myIssuedBooks">
+                <div class="empty-state"><i class="fa-solid fa-book block"></i><p>No books issued.</p></div>
+            </div>
+        </div>
+        <div class="card">
+            <h3 class="text-lg font-bold text-gray-800 mb-4"><i class="fa-solid fa-book mr-2 text-maroon"></i>Available Books</h3>
+            <div id="availableBooks" class="space-y-2 max-h-96 overflow-y-auto">
+                <div class="text-center text-gray-400 py-6">Loading…</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ── NOTICES ── -->
+<section id="sec-notices" class="section hidden animate-fade-in">
+    <div class="card">
+        <h3 class="text-lg font-bold text-gray-800 mb-4"><i class="fa-solid fa-bullhorn mr-2 text-maroon"></i>Announcements</h3>
+        <div id="noticeList" class="space-y-3">
+            <div class="empty-state"><i class="fa-solid fa-bell-slash block"></i><p>Loading…</p></div>
+        </div>
+    </div>
+</section>
+
+    </div><!-- /contentArea -->
+</div><!-- /main-content -->
+
+<div id="toast" class="toast hidden"></div>
+<script src="student-panel.js"></script>
+</body>
+</html>

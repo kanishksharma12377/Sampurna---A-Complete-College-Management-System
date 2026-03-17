@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sampurna ERP — Home</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="styles.css" />
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            maroon: '#800000',
+            'maroon-dark': '#660000',
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-gray-50 text-gray-800">
+  <!-- Header -->
+  <header class="bg-white border-b border-gray-200 sticky top-0 z-10">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-3 group">
+        <img src="images/image2.png" alt="Sampurna ERP logo" class="w-9 h-9 object-contain" />
+        <h1 class="text-xl sm:text-2xl font-bold text-maroon group-hover:opacity-90">Sampurna ERP</h1>
+      </a>
+      <nav class="hidden sm:flex items-center gap-6 text-sm">
+        <a href="#features" class="hover:text-maroon">Features</a>
+        <a href="#modules" class="hover:text-maroon">Modules</a>
+        <a href="#how-it-works" class="hover:text-maroon">How it works</a>
+        <a href="#get-started" class="bg-maroon text-white px-4 py-2 rounded-lg hover:bg-maroon-dark">Get started</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Banner -->
+  <section class="bg-maroon text-white">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-20">
+      <div class="grid md:grid-cols-2 gap-10 items-center">
+        <div>
+          <div class="flex items-center gap-3 mb-4 md:hidden">
+            <div class="w-6 h-0.5 bg-white"></div>
+            <div class="w-6 h-0.5 bg-white"></div>
+            <div class="w-6 h-0.5 bg-white"></div>
+            <span class="ml-2 font-semibold">Sampurna ERP</span>
+          </div>
+          <h2 class="text-3xl sm:text-5xl font-extrabold leading-tight">UNIFYING INDIAN HIGHER EDUCATION</h2>
+          <p class="mt-4 text-lg text-white/90">One Platform. Real-time Insights. Zero Capital Cost.</p>
+          <div class="mt-8">
+            <a href="#features" class="inline-flex items-center justify-center rounded-lg bg-white/95 text-maroon font-bold tracking-wide uppercase px-6 py-3 hover:bg-white">Learn More</a>
+          </div>
+        </div>
+        <div class="relative">
+          <div class="rounded-xl overflow-hidden border border-white/10 shadow-sm bg-white/5 p-2 sm:p-3">
+            <img src="images/hero-graphic.png" alt="Sampurna ERP graphic showing campus, analytics, innovation, and security" class="w-full h-auto object-contain max-h-[340px] sm:max-h-[420px] md:max-h-[520px] mx-auto" loading="eager" decoding="async" />
+          </div>
+          <div class="pointer-events-none absolute -right-4 -bottom-4 w-6 h-6 rotate-45 bg-white/20 rounded-sm hidden sm:block"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+   <br>
+  <section id="features" class="bg-white border-t border-b border-gray-200">
+    <br>
+    <hr>
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <h3 class="text-2xl sm:text-3xl font-bold text-gray-900">What’s inside</h3>
+      <p class="mt-2 text-gray-600">Core modules implemented for a functional demo.</p>
+      <div class="mt-8 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="p-5 border border-gray-200 rounded-xl bg-white">
+          <h4 class="font-semibold">Admissions</h4>
+          <p class="mt-1 text-sm text-gray-600">Create and edit student records with Admission ID.</p>
+        </div>
+        <div class="p-5 border border-gray-200 rounded-xl bg-white">
+          <h4 class="font-semibold">Fees & Receipts</h4>
+          <p class="mt-1 text-sm text-gray-600">Record payments and generate PDF receipts.</p>
+        </div>
+        <div class="p-5 border border-gray-200 rounded-xl bg-white">
+          <h4 class="font-semibold">Library</h4>
+          <p class="mt-1 text-sm text-gray-600">Manage books, cards, and issued books.</p>
+        </div>
+        <div class="p-5 border border-gray-200 rounded-xl bg-white">
+          <h4 class="font-semibold">Departments</h4>
+          <p class="mt-1 text-sm text-gray-600">Maintain departments and staff info.</p>
+        </div>
+        <div class="p-5 border border-gray-200 rounded-xl bg-white">
+          <h4 class="font-semibold">Hostel</h4>
+          <p class="mt-1 text-sm text-gray-600">Track hostel allocations and rooms.</p>
+        </div>
+        <div class="p-5 border border-gray-200 rounded-xl bg-white">
+          <h4 class="font-semibold">Notices & Exams</h4>
+          <p class="mt-1 text-sm text-gray-600">Share notices and exam schedules.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Modules quick links -->
+  <section id="modules" class="bg-gray-50">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <h3 class="text-2xl sm:text-3xl font-bold">Quick links</h3>
+      <p class="mt-2 text-gray-600">Jump straight to a panel.</p>
+      <div class="mt-6 grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <a href="login.html#student" class="block p-5 rounded-xl border border-gray-200 bg-white hover:border-maroon hover:shadow-sm">
+          <div class="font-semibold">Student Panel</div>
+          <div class="text-sm text-gray-600">Use your Admission ID</div>
+        </a>
+        <a href="login.html#admin" class="block p-5 rounded-xl border border-gray-200 bg-white hover:border-maroon hover:shadow-sm">
+          <div class="font-semibold">Admin Panel</div>
+          <div class="text-sm text-gray-600">Default demo creds: admin/admin</div>
+        </a>
+        <a href="admin-panel.html#fees" class="block p-5 rounded-xl border border-gray-200 bg-white hover:border-maroon hover:shadow-sm">
+          <div class="font-semibold">Fees</div>
+          <div class="text-sm text-gray-600">Collect fees, generate receipts</div>
+        </a>
+        <a href="admin-panel.html#library" class="block p-5 rounded-xl border border-gray-200 bg-white hover:border-maroon hover:shadow-sm">
+          <div class="font-semibold">Library</div>
+          <div class="text-sm text-gray-600">Books and issues</div>
+        </a>
+        <a href="admin-panel.html#notices" class="block p-5 rounded-xl border border-gray-200 bg-white hover:border-maroon hover:shadow-sm">
+          <div class="font-semibold">Notices</div>
+          <div class="text-sm text-gray-600">Publish announcements</div>
+        </a>
+        <a href="admin-panel.html#exams" class="block p-5 rounded-xl border border-gray-200 bg-white hover:border-maroon hover:shadow-sm">
+          <div class="font-semibold">Exams</div>
+          <div class="text-sm text-gray-600">Manage schedules</div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- How it works -->
+  
+
+  <!-- CTA -->
+  <section id="get-started" class="bg-gray-50">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 text-center">
+      <h3 class="text-2xl sm:text-3xl font-bold">Ready to try it?</h3>
+      <p class="mt-2 text-gray-600">Use the demo credentials or a student Admission ID.</p>
+      <div class="mt-6 flex flex-col sm:flex-row gap-3 justify-center">
+        <a href="login.html#admin" class="inline-flex items-center justify-center rounded-lg bg-maroon px-6 py-3 text-white font-semibold hover:bg-maroon-dark">Admin Login</a>
+        <a href="login.html#student" class="inline-flex items-center justify-center rounded-lg border border-gray-300 px-6 py-3 font-semibold text-gray-700 hover:border-maroon hover:text-maroon">Student Login</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-white border-t border-gray-200">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 text-sm text-gray-500 flex flex-col sm:flex-row items-center justify-between gap-2">
+      <div>© <span id="y"></span> Sampurna ERP Demo</div>
+      <div class="flex gap-4">
+        <a href="docs/ARCHITECTURE.md" class="hover:text-maroon">Architecture</a>
+        <a href="docs/ROADMAP.md" class="hover:text-maroon">Roadmap</a>
+        <a href="README.md" class="hover:text-maroon">README</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Small enhancement: update year and handle hash deep-links
+    document.getElementById('y').textContent = new Date().getFullYear();
+
+    // If user opens login.html#admin or #student from quick links,
+    // make role preselected using URL hash when login page loads.
+    (function attachLoginHashHelper(){
+      if (!location.hash) return;
+      const target = location.hash.replace('#','');
+      if (['admin','student'].includes(target)) {
+        // Pass through to login with a query param the login page understands
+        const url = new URL(location.origin + location.pathname.replace('index.html', 'login.html'));
+        url.hash = '#' + target;
+        location.href = url.toString();
+      }
+    })();
+  </script>
+</body>
+</html>

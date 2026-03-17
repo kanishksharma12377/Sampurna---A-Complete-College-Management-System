@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel — Sampurna ERP</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <script>
+        tailwind.config = { theme: { extend: { colors: { maroon: { DEFAULT:'#800000', dark:'#5c0000', light:'#a03030' } } } } }
+    </script>
+</head>
+<body class="bg-gray-100 min-h-screen">
+
+<!-- ══════════════════ SIDEBAR ══════════════════ -->
+<aside class="sidebar scrollbar-hide" id="sidebar">
+    <div class="sidebar-logo">
+        <img src="images/image2.png" alt="Logo" />
+        <h1>Sampurna ERP</h1>
+    </div>
+    <nav class="sidebar-nav">
+        <button class="sidebar-nav-item active" data-section="dashboard"><i class="fa-solid fa-chart-pie"></i>Dashboard</button>
+        <button class="sidebar-nav-item" data-section="admissions"><i class="fa-solid fa-user-plus"></i>Admissions</button>
+        <button class="sidebar-nav-item" data-section="fees"><i class="fa-solid fa-indian-rupee-sign"></i>Fee Management</button>
+        <button class="sidebar-nav-item" data-section="hostel"><i class="fa-solid fa-building"></i>Hostel</button>
+        <button class="sidebar-nav-item" data-section="exams"><i class="fa-solid fa-file-lines"></i>Examinations</button>
+        <button class="sidebar-nav-item" data-section="library"><i class="fa-solid fa-book-open"></i>Library</button>
+        <button class="sidebar-nav-item" data-section="departments"><i class="fa-solid fa-building-columns"></i>Departments</button>
+        <button class="sidebar-nav-item" data-section="notices"><i class="fa-solid fa-bullhorn"></i>Notices</button>
+    </nav>
+    <div class="sidebar-footer">
+        <p>Sampurna College of Engineering</p>
+        <p class="mt-1">ERP v1.0</p>
+    </div>
+</aside>
+
+<!-- ══════════════════ MAIN ══════════════════ -->
+<div class="main-content">
+    <!-- Top Bar -->
+    <header class="topbar">
+        <div class="flex items-center gap-3">
+            <button id="menuToggle" class="md:hidden text-gray-600 text-xl"><i class="fa-solid fa-bars"></i></button>
+            <h2 class="topbar-title" id="sectionTitle">Dashboard</h2>
+        </div>
+        <div class="flex items-center gap-4">
+            <span class="text-sm text-gray-500"><i class="fa-solid fa-user-shield mr-1"></i>Admin</span>
+            <button onclick="logout()" class="btn btn-outline btn-sm"><i class="fa-solid fa-right-from-bracket"></i>Logout</button>
+        </div>
+    </header>
+
+    <div class="p-6" id="contentArea">
+
+<!-- ─────────── DASHBOARD ─────────── -->
+<section id="sec-dashboard" class="section animate-fade-in">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+        <div class="stat-card" style="border-top:4px solid var(--maroon)">
+            <div class="stat-icon bg-red-50 text-maroon"><i class="fa-solid fa-users"></i></div>
+            <div class="stat-value" id="statStudents">—</div>
+            <div class="stat-label">Students</div>
+        </div>
+        <div class="stat-card" style="border-top:4px solid var(--green)">
+            <div class="stat-icon bg-green-50 text-green-600"><i class="fa-solid fa-indian-rupee-sign"></i></div>
+            <div class="stat-value" id="statRevenue">—</div>
+            <div class="stat-label">Total Revenue</div>
+        </div>
+        <div class="stat-card" style="border-top:4px solid var(--blue)">
+            <div class="stat-icon bg-blue-50 text-blue-600"><i class="fa-solid fa-bed"></i></div>
+            <div class="stat-value" id="statHostel">—</div>
+            <div class="stat-label">Hostel Residents</div>
+        </div>
+        <div class="stat-card" style="border-top:4px solid var(--amber)">
+            <div class="stat-icon bg-amber-50 text-amber-600"><i class="fa-solid fa-book"></i></div>
+            <div class="stat-value" id="statBooks">—</div>
+            <div class="stat-label">Library Books</div>
+        </div>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+        <div class="stat-card" style="border-top:4px solid #8b5cf6">
+            <div class="stat-icon bg-purple-50 text-purple-600"><i class="fa-solid fa-building-columns"></i></div>
+            <div class="stat-value" id="statDepts">—</div>
+            <div class="stat-label">Departments</div>
+        </div>
+        <div class="stat-card" style="border-top:4px solid #ec4899">
+            <div class="stat-icon bg-pink-50 text-pink-600"><i class="fa-solid fa-file-lines"></i></div>
+            <div class="stat-value" id="statExams">—</div>
+            <div class="stat-label">Upcoming Exams</div>
+        </div>
+        <div class="stat-card" style="border-top:4px solid #14b8a6">
+            <div class="stat-icon bg-teal-50 text-teal-600"><i class="fa-solid fa-book-open-reader"></i></div>
+            <div class="stat-value" id="statIssued">—</div>
+            <div class="stat-label">Books Issued</div>
+        </div>
+        <div class="stat-card" style="border-top:4px solid #f97316">
+            <div class="stat-icon bg-orange-50 text-orange-600"><i class="fa-solid fa-door-open"></i></div>
+            <div class="stat-value" id="statRooms">—</div>
+            <div class="stat-label">Hostel Rooms</div>
+        </div>
+    </div>
+    <!-- Recent Announcements -->
+    <div class="card">
+        <h3 class="text-lg font-bold text-gray-800 mb-4"><i class="fa-solid fa-bullhorn mr-2 text-maroon"></i>Recent Notices</h3>
+        <div id="dashNotices" class="space-y-3">
+            <div class="empty-state"><i class="fa-solid fa-bell-slash block"></i><p>Loading notices…</p></div>
+        </div>
+    </div>
+</section>
+
+<!-- ─────────── ADMISSIONS ─────────── -->
+<section id="sec-admissions" class="section hidden animate-fade-in">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <!-- Form -->
+        <div class="card lg:col-span-1">
+            <h3 class="text-lg font-bold text-gray-800 mb-4"><i class="fa-solid fa-user-plus mr-2 text-maroon"></i>New Admission</h3>
+            <form id="admissionForm" class="space-y-3">
+                <p class="text-xs font-semibold text-gray-500 uppercase tracking-wide">Personal Details</p>
+                <input class="form-input" id="admName" placeholder="Full Name *" required />
+                <div class="grid grid-cols-2 gap-3">
+                    <input class="form-input" id="admFather" placeholder="Father's Name" />
+                    <input class="form-input" id="admMother" placeholder="Mother's Name" />
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                    <select class="form-input" id="admGender"><option value="">Gender</option><option>Male</option><option>Female</option><option>Other</option></select>
+                    <input type="date" class="form-input" id="admDob" title="Date of Birth" />
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                    <select class="form-input" id="admBloodGroup"><option value="">Blood Group</option><option>A+</option><option>A-</option><option>B+</option><option>B-</option><option>AB+</option><option>AB-</option><option>O+</option><option>O-</option></select>
+                    <select class="form-input" id="admCategory"><option value="General">General</option><option value="OBC">OBC</option><option value="SC">SC</option><option value="ST">ST</option><option value="EWS">EWS</option></select>
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                    <input class="form-input" id="admReligion" placeholder="Religion" />
+                    <input class="form-input" id="admNationality" placeholder="Nationality" value="Indian" />
+                </div>
+                <input class="form-input" id="admAadhar" placeholder="Aadhar Number" maxlength="14" />
+
+                <p class="text-xs font-semibold text-gray-500 uppercase tracking-wide pt-2">Academic Details</p>
+                <input class="form-input" id="admCourse" placeholder="Course / Department *" required />
+                <div class="grid grid-cols-3 gap-3">
+                    <input class="form-input" id="admYear" type="number" placeholder="Year *" min="1" max="6" value="1" required />
+                    <input class="form-input" id="admSemester" placeholder="Semester" />
+                    <input class="form-input" id="admSection" placeholder="Section" value="A" />
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                    <input class="form-input" id="admRollNo" placeholder="Roll Number" />
+                    <input type="date" class="form-input" id="admAdmissionDate" title="Admission Date" />
+                </div>
+
+                <p class="text-xs font-semibold text-gray-500 uppercase tracking-wide pt-2">Contact Details</p>
+                <input class="form-input" id="admEmail" type="email" placeholder="Email" />
+                <div class="grid grid-cols-2 gap-3">
+                    <input class="form-input" id="admPhone" placeholder="Phone" />
+                    <input class="form-input" id="admGuardianPhone" placeholder="Guardian Phone" />
+                </div>
+                <input class="form-input" id="admAddress" placeholder="Current Address" />
+                <input class="form-input" id="admPermAddress" placeholder="Permanent Address" />
+
+                <button type="submit" class="btn btn-primary w-full mt-2"><i class="fa-solid fa-plus"></i>Add Student</button>
+            </form>
+            <div id="admResult" class="mt-3 text-sm hidden"></div>
+        </div>
+        <!-- Student List -->
+        <div class="card lg:col-span-2">
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="text-lg font-bold text-gray-800"><i class="fa-solid fa-list mr-2 text-maroon"></i>Student Directory</h3>
+                <div class="relative">
+                    <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
+                    <input id="studentSearch" class="form-input pl-9 w-48" placeholder="Search…" />
+                </div>
+            </div>
+            <div class="overflow-x-auto">
+                <table>
+                    <thead><tr><th>ID</th><th>Name</th><th>Department</th><th>Roll No</th><th>Sem</th><th>Phone</th><th>Actions</th></tr></thead>
+                    <tbody id="studentTableBody"><tr><td colspan="7" class="text-center text-gray-400 py-6">Loading…</td></tr></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ─────────── FEES ─────────── -->
+<section id="sec-fees" class="section hidden animate-fade-in">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div class="card lg:col-span-1">
+            <h3 class="text-lg font-bold text-gray-800 mb-4"><i class="fa-solid fa-receipt mr-2 text-maroon"></i>Collect Fee</h3>
+            <form id="feeForm" class="space-y-3">
+                <input class="form-input" id="feeStudentId" placeholder="Student ID *" required />
+                <input class="form-input" id="feeStudentName" placeholder="Student Name *" required />
+                <select class="form-input" id="feeCourseYear">
+                    <option value="">Course/Year</option>
+                    <option>B.Tech / 1st Year</option><option>B.Tech / 2nd Year</option>
+                    <option>B.Tech / 3rd Year</option><option>B.Tech / 4th Year</option>
+                    <option>M.Tech / 1st Year</option><option>M.Tech / 2nd Year</option>
+                    <option>BCA / 1st Year</option><option>MCA / 1st Year</option>
+                </select>
+                <div id="feeItemsContainer">
+                    <div class="flex gap-2 items-center">
+                        <input class="form-input flex-1" placeholder="Fee type" value="Tuition Fee" />
+                        <input class="form-input w-28" type="number" placeholder="Amount" value="50000" />
+                        <button type="button" onclick="addFeeRow()" class="text-maroon text-lg font-bold" title="Add row"><i class="fa-solid fa-plus"></i></button>
+                    </div>
+                </div>
+                <select class="form-input" id="feePaymentMode">
+                    <option>Cash</option><option>UPI</option><option>NEFT</option><option>DD</option>
+                </select>
+                <input class="form-input" id="feeTransId" placeholder="Transaction ID (optional)" />
+                <input class="form-input" id="feeRemarks" placeholder="Remarks" />
+                <button type="submit" class="btn btn-success w-full"><i class="fa-solid fa-check"></i>Submit & Generate Receipt</button>
+            </form>
+        </div>
+        <div class="card lg:col-span-2">
+            <h3 class="text-lg font-bold text-gray-800 mb-4"><i class="fa-solid fa-clock-rotate-left mr-2 text-maroon"></i>Fee Records</h3>
+            <div class="overflow-x-auto">
+                <table>
+                    <thead><tr><th>Receipt</th><th>Student</th><th>Amount</th><th>Date</th><th>Mode</th></tr></thead>
+                    <tbody id="feeTableBody"><tr><td colspan="5" class="text-center text-gray-400 py-6">Loading…</td></tr></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ─────────── HOSTEL ─────────── -->
+<section id="sec-hostel" class="section hidden animate-fade-in">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <!-- Rooms -->
+        <div class="card">
+            <h3 class="text-lg font-bold text-gray-800 mb-4"><i class="fa-solid fa-door-open mr-2 text-maroon"></i>Rooms</h3>
+            <form id="roomForm" class="space-y-3 mb-4">
+                <div class="grid grid-cols-2 gap-3">
+                    <input class="form-input" id="roomNo" placeholder="Room No *" required />
+                    <input class="form-input" id="roomBlock" placeholder="Block *" value="Block A" required />
+                </div>
+                <div class="grid grid-cols-3 gap-3">
+                    <select class="form-input" id="roomType"><option>Single</option><option>Double</option><option>Triple</option></select>
+                    <input class="form-input" id="roomCap" type="number" placeholder="Capacity" min="1" value="2" />
+                    <input class="form-input" id="roomFloor" type="number" placeholder="Floor" min="0" value="1" />
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                    <input class="form-input" id="roomRent" type="number" placeholder="Rent/month (₹)" value="3000" />
+                    <select class="form-input" id="roomStatus"><option>Available</option><option>Maintenance</option><option>Closed</option></select>
+                </div>
+                <input class="form-input" id="roomAmenities" placeholder="Amenities (e.g. Fan, AC, WiFi)" />
+                <button type="submit" class="btn btn-primary w-full"><i class="fa-solid fa-plus"></i>Add Room</button>
+            </form>
+            <div class="overflow-x-auto">
+                <table>
+                    <thead><tr><th>Room</th><th>Block</th><th>Type</th><th>Capacity</th><th>Rent</th><th>Status</th><th></th></tr></thead>
+                    <tbody id="roomTableBody"><tr><td colspan="7" class="text-center text-gray-400 py-6">Loading…</td></tr></tbody>
+                </table>
+            </div>
+        </div>
+        <!-- Allocations -->
+        <div class="card">
+            <h3 class="text-lg font-bold text-gray-800 mb-4"><i class="fa-solid fa-bed mr-2 text-maroon"></i>Allocations</h3>
+            <form id="allocForm" class="flex gap-2 mb-4">
+                <input class="form-input flex-1" id="allocStudentId" placeholder="Student ID *" required />
+                <input class="form-input w-28" id="allocRoom" placeholder="Room No *" required />
+                <button type="submit" class="btn btn-primary btn-sm"><i class="fa-solid fa-plus"></i>Allocate</button>
+            </form>
+            <div class="overflow-x-auto">
+                <table>
+                    <thead><tr><th>Student ID</th><th>Room</th><th>Since</th><th></th></tr></thead>
+                    <tbody id="allocTableBody"><tr><td colspan="4" class="text-center text-gray-400 py-6">Loading…</td></tr></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ─────────── EXAMS ─────────── -->
+<section id="sec-exams" class="section hidden animate-fade-in">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div class="card lg:col-span-1">
+            <h3 class="text-lg font-bold text-gray-800 mb-4"><i class="fa-solid fa-calendar-plus mr-2 text-maroon"></i>Schedule Exam</h3>
+            <form id="examForm" class="space-y-3">
+                <input class="form-input" id="examName" placeholder="Exam / Subject Name *" required />
+                <input class="form-input" id="examCourse" placeholder="Course / Department *" required />
+                <select class="form-input" id="examType">
+                    <option value="Mid-Semester">Mid-Semester</option>
+                    <option value="End-Semester">End-Semester</option>
+                    <option value="Internal">Internal</option>
+                    <option value="Practical">Practical</option>
+                    <option value="Supplementary">Supplementary</option>
+                </select>
+                <div class="grid grid-cols-2 gap-3">
+                    <input type="date" class="form-input" id="examDate" required />
+                    <input type="time" class="form-input" id="examTime" />
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                    <input class="form-input" id="examMaxMarks" type="number" placeholder="Max Marks" value="100" />
+                    <input class="form-input" id="examPassMarks" type="number" placeholder="Pass Marks" value="40" />
+                </div>
+                <input class="form-input" id="examVenue" placeholder="Venue / Hall" />
+                <input class="form-input" id="examSemester" placeholder="Semester (e.g. Sem 3)" />
+                <textarea class="form-input" id="examDesc" rows="2" placeholder="Syllabus / Description"></textarea>
+                <button type="submit" class="btn btn-primary w-full"><i class="fa-solid fa-plus"></i>Add Exam</button>
+            </form>
+        </div>
+        <div class="card lg:col-span-2">
+            <h3 class="text-lg font-bold text-gray-800 mb-4"><i class="fa-solid fa-file-lines mr-2 text-maroon"></i>Exam Schedule</h3>
+            <div class="overflow-x-auto">
+                <table>
+                    <thead><tr><th>Exam</th><th>Course</th><th>Type</th><th>Date</th><th>Marks</th><th>Venue</th><th></th></tr></thead>
+                    <tbody id="examTableBody"><tr><td colspan="7" class="text-center text-gray-400 py-6">Loading…</td></tr></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ─────────── LIBRARY ─────────── -->
+<section id="sec-library" class="section hidden animate-fade-in">
+    <!-- Sub-tabs -->
+    <div class="flex gap-2 mb-6">
+        <button class="btn btn-primary lib-tab active" data-libtab="books"><i class="fa-solid fa-book"></i>Books</button>
+        <button class="btn btn-outline lib-tab" data-libtab="cards"><i class="fa-solid fa-id-card"></i>Library Cards</button>
+        <button class="btn btn-outline lib-tab" data-libtab="issued"><i class="fa-solid fa-hand-holding"></i>Issued Books</button>
+    </div>
+    <!-- Books -->
+    <div id="libBooks" class="lib-panel">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div class="card lg:col-span-1">
+                <h3 class="text-lg font-bold text-gray-800 mb-4"><i class="fa-solid fa-book mr-2 text-maroon"></i>Add Book</h3>
+                <form id="bookForm" class="space-y-3">
+                    <input class="form-input" id="bookTitle" placeholder="Title *" required />
+                    <input class="form-input" id="bookAuthor" placeholder="Author *" required />
+                    <input class="form-input" id="bookISBN" placeholder="ISBN" />
+                    <div class="grid grid-cols-2 gap-3">
+                        <input class="form-input" id="bookPublisher" placeholder="Publisher" />
+                        <input class="form-input" id="bookEdition" placeholder="Edition" />
+                    </div>
+                    <div class="grid grid-cols-2 gap-3">
+                        <input class="form-input" id="bookYearPublished" type="number" placeholder="Year Published" />
+                        <input class="form-input" id="bookCopies" type="number" placeholder="Copies" min="1" value="1" />
+                    </div>
+                    <div class="grid grid-cols-2 gap-3">
+                        <input class="form-input" id="bookCategory" placeholder="Category" />
+                        <input class="form-input" id="bookShelfNo" placeholder="Shelf No" />
+                    </div>
+                    <select class="form-input" id="bookLanguage">
+                        <option value="English">English</option>
+                        <option value="Hindi">Hindi</option>
+                        <option value="Sanskrit">Sanskrit</option>
+                        <option value="Other">Other</option>
+                    </select>
+                    <button type="submit" class="btn btn-primary w-full"><i class="fa-solid fa-plus"></i>Add Book</button>
+                </form>
+            </div>
+            <div class="card lg:col-span-2">
+                <h3 class="text-lg font-bold text-gray-800 mb-4">Book Catalogue</h3>
+                <div class="overflow-x-auto">
+                    <table>
+                        <thead><tr><th>Title</th><th>Author</th><th>Publisher</th><th>Shelf</th><th>Available</th><th></th></tr></thead>
+                        <tbody id="bookTableBody"><tr><td colspan="6" class="text-center text-gray-400 py-6">Loading…</td></tr></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Cards -->
+    <div id="libCards" class="lib-panel hidden">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div class="card lg:col-span-1">
+                <h3 class="text-lg font-bold text-gray-800 mb-4"><i class="fa-solid fa-id-card mr-2 text-maroon"></i>Issue Library Card</h3>
+                <form id="cardForm" class="space-y-3">
+                    <input class="form-input" id="cardStudentId" placeholder="Student ID *" required />
+                    <input class="form-input" id="cardStudentName" placeholder="Student Name *" required />
+                    <input class="form-input" id="cardClass" placeholder="Class / Course" />
+                    <input class="form-input" id="cardRollNo" placeholder="Roll No" />
+                    <button type="submit" class="btn btn-primary w-full"><i class="fa-solid fa-plus"></i>Create Card</button>
+                </form>
+            </div>
+            <div class="card lg:col-span-2">
+                <h3 class="text-lg font-bold text-gray-800 mb-4">Library Cards</h3>
+                <div class="overflow-x-auto">
+                    <table>
+                        <thead><tr><th>Card No</th><th>Student</th><th>Class</th><th>Roll</th><th>Issued On</th></tr></thead>
+                        <tbody id="cardTableBody"><tr><td colspan="5" class="text-center text-gray-400 py-6">Loading…</td></tr></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Issued Books -->
+    <div id="libIssued" class="lib-panel hidden">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div class="card lg:col-span-1">
+                <h3 class="text-lg font-bold text-gray-800 mb-4"><i class="fa-solid fa-hand-holding mr-2 text-maroon"></i>Issue a Book</h3>
+                <form id="issueForm" class="space-y-3">
+                    <input class="form-input" id="issueCardNo" placeholder="Library Card No *" required />
+                    <input class="form-input" id="issueBookId" type="number" placeholder="Book ID *" required />
+                    <input type="date" class="form-input" id="issueDue" />
+                    <button type="submit" class="btn btn-success w-full"><i class="fa-solid fa-paper-plane"></i>Issue Book</button>
+                </form>
+            </div>
+            <div class="card lg:col-span-2">
+                <h3 class="text-lg font-bold text-gray-800 mb-4">Currently Issued</h3>
+                <div class="overflow-x-auto">
+                    <table>
+                        <thead><tr><th>ID</th><th>Card</th><th>Book</th><th>Issued</th><th>Due</th><th></th></tr></thead>
+                        <tbody id="issuedTableBody"><tr><td colspan="6" class="text-center text-gray-400 py-6">Loading…</td></tr></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ─────────── DEPARTMENTS ─────────── -->
+<section id="sec-departments" class="section hidden animate-fade-in">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div class="card lg:col-span-1">
+            <h3 class="text-lg font-bold text-gray-800 mb-4"><i class="fa-solid fa-building-columns mr-2 text-maroon"></i>Add Department</h3>
+            <form id="deptForm" class="space-y-3">
+                <input class="form-input" id="deptName" placeholder="Department Name *" required />
+                <input class="form-input" id="deptCode" placeholder="Code (e.g. CSE) *" required />
+                <input class="form-input" id="deptHOD" placeholder="HOD Name" />
+                <div class="grid grid-cols-2 gap-3">
+                    <input class="form-input" id="deptHodEmail" type="email" placeholder="HOD Email" />
+                    <input class="form-input" id="deptHodPhone" placeholder="HOD Phone" />
+                </div>
+                <div class="grid grid-cols-3 gap-3">
+                    <input class="form-input" id="deptEstYear" type="number" placeholder="Est. Year" />
+                    <input class="form-input" id="deptFaculty" type="number" placeholder="Faculty" value="0" />
+                    <input class="form-input" id="deptIntake" type="number" placeholder="Intake" value="60" />
+                </div>
+                <textarea class="form-input" id="deptDesc" rows="2" placeholder="Description"></textarea>
+                <button type="submit" class="btn btn-primary w-full"><i class="fa-solid fa-plus"></i>Add Department</button>
+            </form>
+        </div>
+        <div class="card lg:col-span-2">
+            <h3 class="text-lg font-bold text-gray-800 mb-4">All Departments</h3>
+            <div class="overflow-x-auto">
+                <table>
+                    <thead><tr><th>Code</th><th>Department</th><th>HOD</th><th>Faculty</th><th>Intake</th><th></th></tr></thead>
+                    <tbody id="deptTableBody"><tr><td colspan="6" class="text-center text-gray-400 py-6">Loading…</td></tr></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ─────────── NOTICES ─────────── -->
+<section id="sec-notices" class="section hidden animate-fade-in">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div class="card lg:col-span-1">
+            <h3 class="text-lg font-bold text-gray-800 mb-4"><i class="fa-solid fa-bullhorn mr-2 text-maroon"></i>Post Notice</h3>
+            <form id="noticeForm" class="space-y-3">
+                <input class="form-input" id="noticeTitle" placeholder="Title *" required />
+                <textarea class="form-input" id="noticeContent" rows="4" placeholder="Content *" required></textarea>
+                <select class="form-input" id="noticeAudience">
+                    <option value="all">All</option>
+                    <option value="students">Students Only</option>
+                    <option value="hostel">Hostel</option>
+                    <option value="library">Library</option>
+                    <option value="exams">Exams</option>
+                </select>
+                <div class="grid grid-cols-2 gap-3">
+                    <select class="form-input" id="noticePriority">
+                        <option value="Normal">Normal</option>
+                        <option value="Important">Important</option>
+                        <option value="Urgent">Urgent</option>
+                    </select>
+                    <input type="date" class="form-input" id="noticeExpiry" title="Expiry Date (optional)" />
+                </div>
+                <input class="form-input" id="noticePostedBy" placeholder="Posted By" value="Admin" />
+                <button type="submit" class="btn btn-primary w-full"><i class="fa-solid fa-paper-plane"></i>Post Notice</button>
+            </form>
+        </div>
+        <div class="card lg:col-span-2">
+            <h3 class="text-lg font-bold text-gray-800 mb-4">All Notices</h3>
+            <div id="noticeList" class="space-y-3">
+                <div class="empty-state"><i class="fa-solid fa-bell-slash block"></i><p>Loading notices…</p></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+    </div><!-- /contentArea -->
+</div><!-- /main-content -->
+
+<!-- Toast container -->
+<div id="toast" class="toast hidden"></div>
+
+<script src="admin-panel.js"></script>
+</body>
+</html>
